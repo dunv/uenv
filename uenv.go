@@ -24,6 +24,10 @@ func SetDotEnv() {
 	for s.Scan() {
 		line := s.Text()
 
+		if len(line) == 0 {
+			continue
+		}
+
 		if strings.HasPrefix(line, "#") || strings.HasPrefix(line, "//") {
 			continue
 		}
