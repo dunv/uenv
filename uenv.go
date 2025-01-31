@@ -6,8 +6,8 @@ import (
 	"strings"
 )
 
-func SetDotEnv() {
-	f, err := os.Open(".env")
+func setDotEnvFromFile(file string) {
+	f, err := os.Open(file)
 	if err != nil {
 		return
 	}
@@ -32,5 +32,15 @@ func SetDotEnv() {
 		if err := os.Setenv(parts[0], parts[1]); err != nil {
 			continue
 		}
+	}
+}
+
+func SetDotEnv(files ...string) {
+	if len(files) == 0 {
+		files = []string{".env", ".env.local"}
+	}
+
+	for _, file := range files {
+		setDotEnvFromFile(file)
 	}
 }
